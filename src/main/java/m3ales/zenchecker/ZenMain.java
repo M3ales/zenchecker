@@ -20,7 +20,7 @@ public class ZenMain {
         for (int i = 0; i < 1; i++) {
             List<Mod> modList = JarExtractor.extractDirectory(new File("C:\\Mods"));
             List<Annotation> methods = modList.stream().flatMap(mod -> mod.getAnnotations().stream()).collect(Collectors.toList());
-            methods.forEach(x-> System.out.println(String.format("%s : %s :: VALUE(S) :: %s",x.target, x.getZenType(),x.values == null ? x.value == null ? null : x.value.value : x.values)));
+            methods.forEach(x-> System.out.println(String.format("%s : %s :: VALUE(S) :: %s",x.target, x.getZenType(),x.values)));
         }
     }
     private static GenericErrorLogger logger;

@@ -11,4 +11,5 @@ public abstract class ParsedAnnotation {
     {
         //do the magics
     }
+    private ParsedAnnotation(){}
 }

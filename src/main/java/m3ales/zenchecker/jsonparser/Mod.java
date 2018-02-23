@@ -9,22 +9,22 @@ public class Mod {
     public Mod(String id)
     {
         identifier = Util.cleanupPackageNames(id);
-        Annotations = new ArrayList<>();
+        annotations = new ArrayList<>();
     }
-    public Mod(List<Annotation> Annotations)
+    public Mod(List<Annotation> annotations)
     {
-        this.Annotations = Annotations;
+        this.annotations = annotations;
         this.identifier = null;
     }
     @SerializedName("name")
     public String identifier;
-    private List<Annotation> Annotations;
+    private List<Annotation> annotations;
     public List<Annotation> getAnnotations()
     {
-        return Annotations;
+        return annotations;
     }
     public void setAnnotations(List<Annotation> annotations)
     {
-        this.Annotations = annotations;
+        this.annotations = annotations;
     }
 }

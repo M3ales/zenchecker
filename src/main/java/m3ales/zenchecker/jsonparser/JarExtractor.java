@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import m3ales.zenchecker.jsonparser.Mod;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -32,6 +32,7 @@ public class JarExtractor {
     }
     public static List<Mod> extract(File jarFile) throws IOException
     {
+        System.out.println("Parsing '" + jarFile + "'");
         ZipFile jar = new ZipFile(jarFile);
         ZipEntry annotation_cache = jar.getEntry("META-INF/fml_cache_annotation.json");
         String data = IOUtils.toString(jar.getInputStream(annotation_cache),"UTF-8");
@@ -49,16 +50,21 @@ public class JarExtractor {
                 System.out.println("Skipping, no valid annotations found");
                 continue;
             }
-                currentMod = new Mod(entry.getKey());
-                currentMod.setAnnotations(gson.fromJson(clazz, Mod.class).getAnnotations());
-                //currentMod.addAnnotation());
+            currentMod = gson.fromJson(clazz, Mod.class);
             if(currentMod != null) {
                 modList.add(currentMod);
                 currentMod = null;
             }
         }
         System.out.println(String.format("Jar '%s' parsed. (%s valid mods found)",jarFile.getName(),modList.size()));
-        modList.forEach(x->x.getAnnotations().forEach(a -> a.cleanupPackageNames()));
+        for(Mod m : modList) {
+            if(m != null && m.getAnnotations() != null)
+            for (Annotation a : m.getAnnotations()) {
+                if (a != null)
+                    a.cleanupPackageNames();
+            }
+        }
+        System.out.println(modList.size() + " Mods.");
         return modList;
     }
     /*

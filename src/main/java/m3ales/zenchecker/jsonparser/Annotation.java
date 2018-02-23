@@ -1,6 +1,6 @@
 package m3ales.zenchecker.jsonparser;
 
-import m3ales.zenchecker.*;
+import com.google.gson.annotations.SerializedName;
 
 public class Annotation {
 
@@ -10,6 +10,9 @@ public class Annotation {
     public static final String MOD_ONLY = "Lcrafttweaker.annotations.ModOnly;";
     public static final String ZEN_EXPANSION = "Lstanhebben.zenscript.annotations.ZenExpansion;";
     public static final String FORGE_MOD = "Lnet.minecraftforge.fml.common.Mod;";
+    public static final String ZEN_GETTER = "Lstanhebben.zenscript.annotations.ZenGetter;";
+    public static final String ZEN_SETTER = "Lstanhebben.zenscript.annotations.ZenSetter;";
+
 
     public Annotation(AnnotationType type, String name, String target, AnnotationValue value)
     {
@@ -29,6 +32,7 @@ public class Annotation {
     public String name;
     public String target;
     public AnnotationValue value;
+    @SerializedName("values")
     public AnnotationArrayValue values;
 
     public ZenType getZenType()
@@ -57,6 +61,14 @@ public class Annotation {
             case FORGE_MOD:
             {
                 return ZenType.FORGE_MOD;
+            }
+            case ZEN_GETTER:
+            {
+                return ZenType.GETTER;
+            }
+            case ZEN_SETTER:
+            {
+                return ZenType.SETTER;
             }
             default:
             {
