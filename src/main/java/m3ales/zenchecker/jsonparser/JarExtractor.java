@@ -51,6 +51,7 @@ public class JarExtractor {
                 continue;
             }
             currentMod = gson.fromJson(clazz, Mod.class);
+            currentMod.srcJar = jarFile.getName();
             if(currentMod != null) {
                 modList.add(currentMod);
                 currentMod = null;

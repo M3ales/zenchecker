@@ -16,6 +16,7 @@ public class Mod {
         this.annotations = annotations;
         this.identifier = null;
     }
+    public String srcJar;
     @SerializedName("name")
     public String identifier;
     private List<Annotation> annotations;
