@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zenchecker.iml" filepath="$PROJECT_DIR$/.idea/modules/zenchecker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zenchecker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/zenchecker_main.iml" group="zenchecker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zenchecker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/zenchecker_test.iml" group="zenchecker" />
+    </modules>
+  </component>
+</project>
