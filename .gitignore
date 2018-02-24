@@ -3,5 +3,6 @@
 /idea-flex.skeleton
  /.gradle/
  /mods/CraftTweaker2-1.12-4.1.4.jar
- /mods/modtweaker-4.0.7.jar
+ 
 build/
+mods/
