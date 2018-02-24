@@ -4,7 +4,6 @@ public class Util {
     public static String cleanupPackageNames(String str)
     {
         str = str.replaceAll("/",".");
-        System.out.println("Cleaned: " + str);
         return str;
     }
 }

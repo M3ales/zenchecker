@@ -5,7 +5,6 @@ public class QualifiedClassName {
     {
         packageName = "";
         className = "";
-        System.out.println("Name: " + name);
         if(name.contains("(") || name.contains(")"))
             return;//ignore, it's a method
         if(name.contains(".")){
@@ -15,7 +14,6 @@ public class QualifiedClassName {
                 className = fragments[fragments.length-1];
                 //classname
                 for (int i = 0; i < fragments.length-1; i++) {
-                    System.out.println(fragments[i]);
                     if(fragments[i] != null)
                         if(i != fragments.length-2)
                             packageName += fragments[i] + ".";

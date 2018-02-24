@@ -22,46 +22,16 @@ public class ZenMain {
             List<Mod> modList = JarExtractor.extractDirectory(new File("C:\\Mods"));
             List<ParsedAnnotation> annotationsList = new ArrayList<>();
             ParsedAnnotationFactory factory = new ParsedAnnotationFactory();
-            for(Mod m : modList) {
+            for (Mod m : modList) {
                 factory.setSourceMod(m);
-                for(Annotation a : m.getAnnotations())
+                for (Annotation a : m.getAnnotations())
                     annotationsList.add(factory.setAnnotation(a).create());
             }
             List<ParsedAnnotation> methods = annotationsList.stream().filter(a -> a instanceof ZenMethodAnnotation).collect(Collectors.toList());
-            for(ParsedAnnotation a : methods)
-            {
-                System.out.println(((ZenMethodAnnotation)a).toZenMethod());
+            for (ParsedAnnotation a : methods) {
+                ZenMethodAnnotation z = (ZenMethodAnnotation) a;
+                System.out.println(z.toZenMethod());
             }
         }
-
-    }
-    private static GenericErrorLogger logger;
-    private static GenericCompileEnvironment environment;
-    private static GenericRegistry registry;
-    private static void setupEnvironment() {
-        //Create a compile environment needed for the registry
-        environment = new GenericCompileEnvironment();
-        //Creates a logger needed for the registry
-        logger = new GenericErrorLogger(System.out);
-        //Creates the IZenRegistry, needed to store all the ZenClass' and Symbols
-         registry = new GenericRegistry(environment, logger);
-        //Registers A print function as a global method
-        registry.registerGlobal("print", registry.getStaticFunction(GenericFunctions.class, "print", String.class));
-        //Creates a IEnvironmentGlobal needed to compile the scripts
-        Map<String, byte[]> classes = new HashMap<>();
-        IEnvironmentGlobal environmentGlobal = registry.makeGlobalEnvironment(classes);
-        //Loads the script file
-        File file = new File("script.zs");
-        String fileName = file.getName();
-        /*FileReader reader = new FileReader(file);
-        //Creates a ZenTokener and ZenParsedFile for the file
-        ZenTokener parser = new ZenTokener(reader, registry.getCompileEnvironment(), fileName, false);
-        ZenParsedFile zenParsedFile = new ZenParsedFile(fileName, fileName, parser, environmentGlobal);
-        try {
-            //Compiles script
-            ZenModule.compileScripts(fileName, Collections.singletonList(zenParsedFile), environmentGlobal, false);
-        } catch(Throwable ex) {
-            registry.getErrorLogger().error("Error executing: " + fileName + ": " + ex.getMessage(), ex);
-        }*/
     }
 }

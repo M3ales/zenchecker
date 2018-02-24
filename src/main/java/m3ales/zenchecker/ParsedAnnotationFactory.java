@@ -2,7 +2,6 @@ package m3ales.zenchecker;
 
 import m3ales.zenchecker.jsonparser.Annotation;
 import m3ales.zenchecker.jsonparser.Mod;
-import m3ales.zenchecker.jsonparser.ZenType;
 
 
 public class ParsedAnnotationFactory {
