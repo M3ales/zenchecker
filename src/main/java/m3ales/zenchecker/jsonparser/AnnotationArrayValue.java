@@ -1,8 +1,5 @@
 package m3ales.zenchecker.jsonparser;
 
-
-import java.util.Map;
-
 public class AnnotationArrayValue {
     public AnnotationValue acceptedMinecraftVersions;
     public AnnotationValue dependencies;

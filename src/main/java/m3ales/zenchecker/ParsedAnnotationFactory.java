@@ -42,6 +42,15 @@ public class ParsedAnnotationFactory {
             {
                 return new ZenMethodAnnotation(annotation, currentClass);
             }
+            case SETTER:
+            {
+                return new ZenSetterAnnotation(annotation,currentClass);
+            }
+            case GETTER:
+            {
+                return new ZenGetterAnnotation(annotation, currentClass);
+            }
+            //<minecraft:item>.gette
         }
         return null;
     }

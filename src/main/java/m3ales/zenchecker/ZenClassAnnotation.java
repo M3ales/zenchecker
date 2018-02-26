@@ -9,10 +9,24 @@ public class ZenClassAnnotation extends ParsedAnnotation{
         return mod;
     }
 
-    public QualifiedClassName className;
+    public QualifiedClassName qualifiedClassName;
     public ZenClassAnnotation(Annotation jsonAnnotation, ModInfoAnnotation mod) {
         super(jsonAnnotation);
-        this.className = new QualifiedClassName(jsonAnnotation.target);
+        this.qualifiedClassName = new QualifiedClassName(jsonAnnotation.target);
         this.mod = mod;
+    }
+    @Override
+    public String toZenString() {
+        return String.format("mods.%s.%s",mod.modid,qualifiedClassName.className);
+    }
+
+    @Override
+    public String toPrettyString() {
+        return qualifiedClassName.className;
+    }
+
+    @Override
+    public String toQualifiedString() {
+        return super.toQualifiedString();
     }
 }

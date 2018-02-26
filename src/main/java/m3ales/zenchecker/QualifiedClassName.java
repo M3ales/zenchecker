@@ -28,7 +28,6 @@ public class QualifiedClassName {
             className = name;
         }
     }
-
     protected String packageName;
     protected String className;
     public String getPackageName()
@@ -48,6 +47,10 @@ public class QualifiedClassName {
         return packageName + getLastFragment();
     }
     public String prettyString()
+    {
+        return className;
+    }
+    public String toZenString()
     {
         return className;
     }

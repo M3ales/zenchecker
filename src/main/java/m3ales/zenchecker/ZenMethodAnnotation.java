@@ -5,34 +5,34 @@ import m3ales.zenchecker.jsonparser.Annotation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ZenMethodAnnotation extends ParsedAnnotation {
-    QualifiedMethodName methodName;
+    public QualifiedMethodName qualifiedMethodName;
     public String returnType;
     public List<MethodArgument> argumentList;
     protected ZenClassAnnotation containingClass;
     public ZenMethodAnnotation(Annotation jsonAnnotation, @NotNull ZenClassAnnotation containingClass) {
         super(jsonAnnotation);
-        argumentList = new ArrayList<>();
         this.containingClass = containingClass;
+        argumentList = new ArrayList<>();
         this.returnType = getReturnType(jsonAnnotation.target.charAt(jsonAnnotation.target.length()-1));
         String[] params = jsonAnnotation.target.split("[(]")[1].split("[)]")[0].split(";");
         for (int i = 0; i < params.length; i++) {
             argumentList.add(new MethodArgument(params[i],i));
         }
-        methodName = new QualifiedMethodName(jsonAnnotation.target,containingClass.className);
-        System.out.println(methodName);
+        qualifiedMethodName = new QualifiedMethodName(jsonAnnotation.target,containingClass.qualifiedClassName);
+        System.out.println(qualifiedMethodName);
     }
 
     public ZenClassAnnotation getContainingClass() {
         return containingClass;
     }
 
-    public String toPrettyMethod()
+    @Override
+    public String toPrettyString()
     {
         StringBuilder builder = new StringBuilder(returnType);
-        builder.append(" ").append(methodName.prettyString()).append("(");
+        builder.append(" ").append(qualifiedMethodName.prettyString()).append("(");
         for(MethodArgument arg : argumentList){
             builder.append(arg.getPrettyString());
             if(argumentList.size()-1 != argumentList.indexOf(arg))
@@ -41,10 +41,11 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
         builder.append(")");
         return builder.toString();
     }
-    public String toQualifiedMethod()
+    @Override
+    public String toQualifiedString()
     {
         StringBuilder builder = new StringBuilder(returnType);
-        builder.append(" ").append(methodName.getFullName()).append("(");
+        builder.append(" ").append(qualifiedMethodName.getFullName()).append("(");
         for(MethodArgument arg : argumentList){
             builder.append(arg);
             if(argumentList.size()-1 != argumentList.indexOf(arg))
@@ -53,11 +54,12 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
         builder.append(")");
         return builder.toString();
     }
-    public String toZenMethod()
+    @Override
+    public String toZenString()
     {
         StringBuilder builder = new StringBuilder(returnType);
         builder.append(" ").append("mods").append(".").append(containingClass.getMod().modid).append(".")
-                .append(containingClass.className.prettyString()).append(".").append(methodName.methodName).append("(");
+                .append(containingClass.qualifiedClassName.prettyString()).append(".").append(qualifiedMethodName.methodName).append("(");
         for(MethodArgument arg : argumentList){
             builder.append(arg.getPrettyString());
             if(argumentList.size()-1 != argumentList.indexOf(arg))
@@ -66,6 +68,7 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
         builder.append(")");
         return builder.toString();
     }
+    @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder("[");
