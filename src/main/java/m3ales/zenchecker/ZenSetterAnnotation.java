@@ -16,7 +16,7 @@ public class ZenSetterAnnotation extends ZenMethodAnnotation {
     }
     @Override
     public String toZenString() {
-        return String.format("%s.%s = %s", qualifiedMethodName.className, varName, argumentList.stream().map(a->a.type.className).collect(Collectors.joining(", ")));
+        return String.format("%s.%s accepts %s", qualifiedMethodName.className, varName, argumentList.stream().map(a->a.type.className).collect(Collectors.joining(", ")));
     }
 
     @Override

@@ -6,7 +6,7 @@ public class MethodArgument {
 
     public MethodArgument(String type, int argNumber) {
         if(type.length() == 1)
-            this.type = new QualifiedClassName(ZenMethodAnnotation.getReturnType(type.charAt(0)));
+            this.type = new QualifiedClassName(ZenMethodAnnotation.getReturnType(type));
         else
             this.type = new QualifiedClassName(type);
         this.argNumber = argNumber;

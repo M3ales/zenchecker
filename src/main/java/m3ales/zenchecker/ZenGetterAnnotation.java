@@ -14,7 +14,7 @@ public class ZenGetterAnnotation extends ZenMethodAnnotation {
 
     @Override
     public String toZenString() {
-        return String.format("%s.%s",qualifiedMethodName.className, varName);
+        return String.format("%s.%s returns %s",qualifiedMethodName.className, varName, returnType);
     }
 
     @Override

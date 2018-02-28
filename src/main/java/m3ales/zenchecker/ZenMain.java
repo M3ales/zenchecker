@@ -7,7 +7,6 @@ import m3ales.zenchecker.jsonparser.JarExtractor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ZenMain {
     public static void main(String[] args) throws Exception {
@@ -20,11 +19,10 @@ public class ZenMain {
                 for (Annotation a : m.getAnnotations())
                     annotationsList.add(factory.setAnnotation(a).create());
             }
-            List<ParsedAnnotation> filtered = ParsedAnnotation.filterByClassName(annotationsList, "ITICMaterial");
+            List<ParsedAnnotation> filtered = ParsedAnnotation.filterByClassName(annotationsList, "JEI");
             for (ParsedAnnotation a : filtered) {
                 System.out.println(a.toZenString());
             }
         }
     }
-
 }

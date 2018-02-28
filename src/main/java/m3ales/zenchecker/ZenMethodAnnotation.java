@@ -15,7 +15,7 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
         super(jsonAnnotation);
         this.containingClass = containingClass;
         argumentList = new ArrayList<>();
-        this.returnType = getReturnType(jsonAnnotation.target.charAt(jsonAnnotation.target.length()-1));
+        this.returnType = getReturnType(jsonAnnotation.target.substring(jsonAnnotation.target.lastIndexOf(")")+1));
         String[] params = jsonAnnotation.target.split("[(]")[1].split("[)]")[0].split(";");
         for (int i = 0; i < params.length; i++) {
             argumentList.add(new MethodArgument(params[i],i));
@@ -68,14 +68,18 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
         builder.append(")");
         return builder.toString();
     }
+
     @Override
-    public String toString()
-    {
-        StringBuilder builder = new StringBuilder("[");
-        return builder.toString();
+    public String toString() {
+        return "ZenMethodAnnotation{" +
+                "qualifiedMethodName=" + qualifiedMethodName +
+                ", returnType='" + returnType + '\'' +
+                ", argumentList=" + argumentList +
+                ", containingClass=" + containingClass +
+                '}';
     }
-    public static String getReturnType(char fragment)
-    {
+
+    public static String getReturnType(String fragment) {
         //reference:
     /*
     String humanizeArg(String arg){
@@ -92,49 +96,47 @@ public class ZenMethodAnnotation extends ParsedAnnotation {
 	]
 	from https://github.com/TechReborn/TechReborn/blob/1.12/build.gradle
      */
-        switch(fragment){
-            case 'Z':
-            {
-                return "boolean";
+        if (fragment.length() == 1) {
+            switch (fragment.charAt(0)) {
+                case 'Z': {
+                    return "boolean";
+                }
+                case 'B': {
+                    return "byte";
+                }
+                case 'C': {
+                    return "char";
+                }
+                case 'D': {
+                    return "double";
+                }
+                case 'F': {
+                    return "float";
+                }
+                case 'I': {
+                    return "int";
+                }
+                case 'J': {
+                    return "long";
+                }
+                case 'L': {
+                    return "object";
+                }
+                case 'S': {
+                    return "short";
+                }
+                case 'V': {
+                    return "void";
+                }
             }
-            case 'B':
-            {
-                return "byte";
-            }
-            case 'C':
-            {
-                return "char";
-            }
-            case 'D':
-            {
-                return "double";
-            }
-            case 'F':
-            {
-                return "float";
-            }
-            case 'I':
-            {
-                return "int";
-            }
-            case 'J':
-            {
-                return "long";
-            }
-            case 'L':
-            {
-                return "object";
-            }
-            case 'S':
-            {
-                return "short";
-            }
-            case 'V':
-            {
-                return "void";
-            }
+            //System.out.println("Undefined type " + fragment);
+            return String.format("UNDEFINED(%s)",fragment);
         }
-        //System.out.println("Undefined type " + fragment);
-        return "UNDEFINED";
+        else
+        {
+            if(fragment.charAt(0) == 'L')
+                return fragment.substring(1);
+            return fragment;
+        }
     }
 }
